@@ -1,0 +1,19 @@
+{
+  "name": "youstream",
+  "version": "1.0.0",
+  "description": "Yotube Stream Tool",
+  "repository": {
+    "type": "git",
+    "url": "github.com/daguswijaya/youstream-mini"
+  },
+  "license": "ISC",
+  "author": "Dagus Wijaya",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "figlet": "^1.10.0"
+  }
+}
