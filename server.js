@@ -20,16 +20,18 @@ figlet.text("YuTools", { font: "Isometric2" }, (err, data) => {
   (async () => {
     const streamKey = await ask("Enter stream key: ");
     const videoFile = await ask("Enter video file location: ");
-    const durationStr = await ask("Enter streaming duration in minutes: ");
+    const hoursStr = await ask("Enter streaming duration (hours): ");
 
-    const minutes = parseInt(durationStr, 10);
-    if (isNaN(minutes)) {
+    const hours = parseInt(hoursStr, 10);
+    if (isNaN(hours) || hours <= 0) {
       console.log("Invalid duration.");
       rl.close();
       return;
     }
 
     rl.close();
+
+    const duration = `${hours}:00:00`;
 
     const args = [
       "-re",
@@ -40,7 +42,7 @@ figlet.text("YuTools", { font: "Isometric2" }, (err, data) => {
       "-c",
       "copy",
       "-t",
-      `${minutes}:00`,
+      duration,
       "-f",
       "flv",
       "-flvflags",
@@ -48,7 +50,7 @@ figlet.text("YuTools", { font: "Isometric2" }, (err, data) => {
       `rtmp://a.rtmp.youtube.com/live2/${streamKey}`,
     ];
 
-    console.log("Starting video stream (no re-encoding)...");
+    console.log(`Starting video stream for ${hours} hour(s)...`);
 
     const ffmpeg = spawn("ffmpeg", args, { stdio: "inherit" });
 
