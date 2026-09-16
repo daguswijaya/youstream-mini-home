@@ -1,7 +1,8 @@
+require("dotenv").config();
+
 const readline = require("readline");
 const { spawn } = require("child_process");
 const figlet = require("figlet");
-
 console.log("\n\n");
 
 figlet.text("YuTools", { font: "Isometric2" }, (err, data) => {
@@ -18,9 +19,9 @@ figlet.text("YuTools", { font: "Isometric2" }, (err, data) => {
   const ask = (q) => new Promise((res) => rl.question(q, res));
 
   (async () => {
-    const streamKey = await ask("Enter stream key: ");
-    const videoFile = await ask("Enter video file location: ");
-    const hoursStr = await ask("Enter streaming duration (hours): ");
+    const streamKey = process.env.STREAM_KEY || (await ask("Enter your YouTube stream key: "));
+    const videoFile = process.env.VIDEO_FILE || (await ask("Enter path to video file: "));
+    const hoursStr = process.env.DURATION || (await ask("Enter streaming duration (hours): "));
 
     const hours = parseInt(hoursStr, 10);
     if (isNaN(hours) || hours <= 0) {
